@@ -23,6 +23,7 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
 
       - name: Build and push Docker image
         id: push
