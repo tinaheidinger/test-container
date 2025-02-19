@@ -23,12 +23,15 @@ spec:
       - attestors:
         - entries:
           - keyless:
-              issuer: https://token.actions.githubusercontent.com
-              subject: https://github.com/tinaheidinger/test-container/.github/workflows/build.yml@refs/heads/main
+              issuerRegExp: https://token\.actions\.githubusercontent.+
+              subjectRegExp: https://github\.com/.+
               rekor:
-                  url: https://rekor.sigstore.dev
+                url: https://rekor.sigstore.dev
         conditions:
         - all:
+          - key: "{{ buildDefinition.externalParameters.workflow.repository }}"
+            operator: Equals
+            value: "https://github.com/tinaheidinger/test-container"
           - key: '{{ buildDefinition.buildType }}'
             operator: Equals
             value: https://actions.github.io/buildtypes/workflow/v1
